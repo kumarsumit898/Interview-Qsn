@@ -1,0 +1,28 @@
+void sumroot(TreeNode *root, int csum, vector<int> &c, vector<vector<int> > &result) {
+    if (root == NULL) return;
+
+    csum -= root->val;
+    c.push_back(root->val);
+
+     
+    if (root->left == NULL && root->right == NULL) {
+        if (csum == 0) {
+            result.push_back(c);
+        }
+        c.pop_back();
+        return;
+    }
+
+    // check the left and the right subtree.
+    sumroot(root->left, csum, c, result);
+    sumroot(root->right, csum, c, result);
+    c.pop_back();
+    return;
+}
+
+vector<vector<int> > Solution::pathSum(TreeNode *root, int B) {
+    vector<vector<int> > result;
+    vector<int> c;
+    sumroot(root, B, c, result);
+    return result;
+}
